@@ -9,7 +9,8 @@
     <artifactId>trading-platform-traffic</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>server</module>
+        <module>model</module>
+        <module>producer</module>
     </modules>
     <build>
         <plugins>

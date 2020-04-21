@@ -95,11 +95,6 @@
                 <artifactId>spring-messaging</artifactId>
                 <version>${spring.version}</version>
             </dependency>
-            <!--            <dependency>-->
-            <!--                <groupId>org.springframework</groupId>-->
-            <!--                <artifactId>spring-webmvc</artifactId>-->
-            <!--                <version>${org.springframework-version}</version>-->
-            <!--            </dependency>-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-websocket</artifactId>
@@ -162,6 +157,11 @@
             </dependency>
             <dependency>
                 <groupId>io.agileinfra.trading.platform</groupId>
+                <artifactId>trading-platform-traffic-producer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.agileinfra.trading.platform</groupId>
                 <artifactId>trading-platform-market-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -193,6 +193,11 @@
             <dependency>
                 <groupId>io.agileinfra.trading.platform</groupId>
                 <artifactId>trading-platform-iam-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.agileinfra.trading.platform</groupId>
+                <artifactId>trading-platform-traffic-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
