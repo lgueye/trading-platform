@@ -101,6 +101,8 @@ The profile will perform the following sequence:
   - `prices.max-variation` (-Dtrades.max-variation= or spring boot --trades.max-variation=) : max price variation, will vary between [-max , +max], integer.    
 
 
-```cd trading-platform-e2e && mvn clean install -Pstandalone```
+```cd trading-platform-e2e && mvn clean install -Pstandalone``` => starts traffic immediately after the traffic backends is fully setup (uses defaults)
 
-Hit `Ctrl+c` to stop
+```cd trading-platform-e2e && mvn verify -Pstandalone -Dstart=2020-04-22T16:58:00.00Z -Dduration=PT1M -Dtrades.delay-interval=PT0.2S,PT0.3S -Dtrades.transition-interval=PT0.5S,PT1S -Dtrades.max-quantity=100 -Dprices.delay-interval=PT0.5S,PT1S -Dprices.max-variation=5``` => starts traffic at provided time and uses the configuration provided on command line
+
+Hit `Enter` to finish the build at any time (tear down all backends) 
