@@ -10,7 +10,7 @@ import java.time.Instant;
 @Slf4j
 public class ClockApiSteps implements En {
 
-	public ClockApiSteps(ClockApi clockApi) {
-		When("clock {}", (final String timestampAsString) -> clockApi.freeze(ClockDto.builder().instant(Instant.parse(timestampAsString)).build()));
+	public ClockApiSteps(ClockApi clockApiE2E) {
+		When("clock {}", (final String timestampAsString) -> clockApiE2E.freeze(ClockDto.builder().instant(Instant.parse(timestampAsString)).build()));
 	}
 }

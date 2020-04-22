@@ -194,75 +194,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>properties-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>set-system-properties</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>set-system-properties</goal>
-                        </goals>
-                        <configuration>
-                            <properties>
-                                <property>
-                                    <name>account.server.url</name>
-                                    <value>${account.server.url}</value>
-                                </property>
-                                <property>
-                                    <name>booking.server.url</name>
-                                    <value>${booking.server.url}</value>
-                                </property>
-                                <property>
-                                    <name>clock.server.url</name>
-                                    <value>${clock.server.url}</value>
-                                </property>
-                                <property>
-                                    <name>instrument.server.url</name>
-                                    <value>${instrument.server.url}</value>
-                                </property>
-                                <property>
-                                    <name>messaging.server.url</name>
-                                    <value>${messaging.server.url}</value>
-                                </property>
-                                <property>
-                                    <name>market.server.url</name>
-                                    <value>${market.server.url}</value>
-                                </property>
-                                <property>
-                                    <name>persistence.server.url</name>
-                                    <value>${persistence.server.url}</value>
-                                </property>
-                                <property>
-                                    <name>persistence.server.user</name>
-                                    <value>${persistence.server.user}</value>
-                                </property>
-                                <property>
-                                    <name>persistence.server.password</name>
-                                    <value>${persistence.server.password}</value>
-                                </property>
-                                <property>
-                                    <name>persistence.server.schema</name>
-                                    <value>${persistence.server.schema}</value>
-                                </property>
-                                <property>
-                                    <name>persistence.client.driver</name>
-                                    <value>${persistence.client.driver}</value>
-                                </property>
-                                <property>
-                                    <name>iam.server.url</name>
-                                    <value>${iam.server.url}</value>
-                                </property>
-                                <property>
-                                    <name>account.server.ws.url</name>
-                                    <value>${account.server.ws.url}</value>
-                                </property>
-                            </properties>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -270,6 +201,79 @@
             <id>e2e</id>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>properties-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>set-system-properties</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>set-system-properties</goal>
+                                </goals>
+                                <configuration>
+                                    <properties>
+                                        <property>
+                                            <name>spring.profiles.active</name>
+                                            <value>e2e</value>
+                                        </property>
+                                        <property>
+                                            <name>account.server.url</name>
+                                            <value>${account.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>booking.server.url</name>
+                                            <value>${booking.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>clock.server.url</name>
+                                            <value>${clock.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>instrument.server.url</name>
+                                            <value>${instrument.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>messaging.server.url</name>
+                                            <value>${messaging.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>market.server.url</name>
+                                            <value>${market.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>persistence.server.url</name>
+                                            <value>${persistence.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>persistence.server.user</name>
+                                            <value>${persistence.server.user}</value>
+                                        </property>
+                                        <property>
+                                            <name>persistence.server.password</name>
+                                            <value>${persistence.server.password}</value>
+                                        </property>
+                                        <property>
+                                            <name>persistence.server.schema</name>
+                                            <value>${persistence.server.schema}</value>
+                                        </property>
+                                        <property>
+                                            <name>persistence.client.driver</name>
+                                            <value>${persistence.client.driver}</value>
+                                        </property>
+                                        <property>
+                                            <name>iam.server.url</name>
+                                            <value>${iam.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>account.server.ws.url</name>
+                                            <value>${account.server.ws.url}</value>
+                                        </property>
+                                    </properties>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>sql-maven-plugin</artifactId>
@@ -462,6 +466,7 @@
                                         <argument>--spring.datasource.url=${persistence.server.url}</argument>
                                         <argument>--messaging.server.url=${messaging.server.url}</argument>
                                         <argument>--clock.server.url=${clock.server.url}</argument>
+                                        <argument>--spring.profiles.active=e2e</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -497,6 +502,7 @@
                                         <argument>--messaging.server.url=${messaging.server.url}</argument>
                                         <argument>--clock.server.url=${clock.server.url}</argument>
                                         <argument>--instrument.server.url=${instrument.server.url}</argument>
+                                        <argument>--spring.profiles.active=e2e</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -532,6 +538,7 @@
                                         <argument>--clock.server.url=${clock.server.url}</argument>
                                         <argument>--account.server.url=${account.server.url}</argument>
                                         <argument>--instrument.server.url=${instrument.server.url}</argument>
+                                        <argument>--spring.profiles.active=e2e</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -557,6 +564,7 @@
                                         <argument>--messaging.server.url=${messaging.server.url}</argument>
                                         <argument>--clock.server.url=${clock.server.url}</argument>
                                         <argument>--account.server.url=${account.server.url}</argument>
+                                        <argument>--spring.profiles.active=e2e</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -589,6 +597,7 @@
                                         <argument>--spring.jpa.hibernate.ddl-auto=validate</argument>
                                         <argument>--spring.datasource.url=${persistence.server.url}</argument>
                                         <argument>--clock.server.url=${clock.server.url}</argument>
+                                        <argument>--spring.profiles.active=e2e</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -621,6 +630,75 @@
             <id>standalone</id>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>properties-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>set-system-properties</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>set-system-properties</goal>
+                                </goals>
+                                <configuration>
+                                    <properties>
+                                        <property>
+                                            <name>account.server.url</name>
+                                            <value>${account.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>booking.server.url</name>
+                                            <value>${booking.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>clock.server.url</name>
+                                            <value>${clock.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>instrument.server.url</name>
+                                            <value>${instrument.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>messaging.server.url</name>
+                                            <value>${messaging.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>market.server.url</name>
+                                            <value>${market.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>persistence.server.url</name>
+                                            <value>${persistence.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>persistence.server.user</name>
+                                            <value>${persistence.server.user}</value>
+                                        </property>
+                                        <property>
+                                            <name>persistence.server.password</name>
+                                            <value>${persistence.server.password}</value>
+                                        </property>
+                                        <property>
+                                            <name>persistence.server.schema</name>
+                                            <value>${persistence.server.schema}</value>
+                                        </property>
+                                        <property>
+                                            <name>persistence.client.driver</name>
+                                            <value>${persistence.client.driver}</value>
+                                        </property>
+                                        <property>
+                                            <name>iam.server.url</name>
+                                            <value>${iam.server.url}</value>
+                                        </property>
+                                        <property>
+                                            <name>account.server.ws.url</name>
+                                            <value>${account.server.ws.url}</value>
+                                        </property>
+                                    </properties>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>sql-maven-plugin</artifactId>
@@ -763,28 +841,6 @@
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>run-clock-server</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>start</goal>
-                                </goals>
-                                <configuration>
-                                    <name>clock-server</name>
-                                    <waitForInterrupt>false</waitForInterrupt>
-                                    <healthcheckUrl>${clock.server.http.health.url}</healthcheckUrl>
-                                    <arguments>
-                                        <argument>java</argument>
-                                        <argument>-Xdebug</argument>
-                                        <argument>-Xrunjdwp:server=y,transport=dt_socket,address=${clock.server.debug.port},suspend=n</argument>
-                                        <argument>-jar</argument>
-                                        <argument>${user.home}/.m2/repository/io/agileinfra/trading/platform/trading-platform-clock-server/${project.parent.version}/trading-platform-clock-server-${project.parent.version}.jar</argument>
-                                        <argument>--server.port=${clock.server.http.port}</argument>
-                                        <argument>--logging.level.io.agileinfra=${logging.level}</argument>
-                                        <argument>--logging.level.org.springframework=WARN</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                            <execution>
                                 <id>run-instrument-server</id>
                                 <phase>pre-integration-test</phase>
                                 <goals>
@@ -813,7 +869,6 @@
                                         <argument>--spring.jpa.hibernate.ddl-auto=validate</argument>
                                         <argument>--spring.datasource.url=${persistence.server.url}</argument>
                                         <argument>--messaging.server.url=${messaging.server.url}</argument>
-                                        <argument>--clock.server.url=${clock.server.url}</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -847,7 +902,6 @@
                                         <argument>--spring.jpa.hibernate.ddl-auto=validate</argument>
                                         <argument>--spring.datasource.url=${persistence.server.url}</argument>
                                         <argument>--messaging.server.url=${messaging.server.url}</argument>
-                                        <argument>--clock.server.url=${clock.server.url}</argument>
                                         <argument>--instrument.server.url=${instrument.server.url}</argument>
                                     </arguments>
                                 </configuration>
@@ -881,7 +935,6 @@
                                         <argument>--spring.jpa.hibernate.ddl-auto=validate</argument>
                                         <argument>--spring.datasource.url=${persistence.server.url}</argument>
                                         <argument>--messaging.server.url=${messaging.server.url}</argument>
-                                        <argument>--clock.server.url=${clock.server.url}</argument>
                                         <argument>--account.server.url=${account.server.url}</argument>
                                         <argument>--instrument.server.url=${instrument.server.url}</argument>
                                     </arguments>
@@ -907,7 +960,6 @@
                                         <argument>--logging.level.io.agileinfra=${logging.level}</argument>
                                         <argument>--logging.level.org.springframework=WARN</argument>
                                         <argument>--messaging.server.url=${messaging.server.url}</argument>
-                                        <argument>--clock.server.url=${clock.server.url}</argument>
                                         <argument>--account.server.url=${account.server.url}</argument>
                                     </arguments>
                                 </configuration>
@@ -940,7 +992,6 @@
                                         <argument>--spring.jpa.open-in-view=false</argument>
                                         <argument>--spring.jpa.hibernate.ddl-auto=validate</argument>
                                         <argument>--spring.datasource.url=${persistence.server.url}</argument>
-                                        <argument>--clock.server.url=${clock.server.url}</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -967,6 +1018,13 @@
                                         <!--                                        <argument>&#45;&#45;clock.server.url=${clock.server.url}</argument>-->
                                         <argument>--account.server.url=${account.server.url}</argument>
                                         <argument>--instrument.server.url=${instrument.server.url}</argument>
+                                        <argument>--start=${start}</argument>
+                                        <argument>--duration=${duration}</argument>
+                                        <argument>--trades.delay-interval=${trades.delay-interval}</argument>
+                                        <argument>--trades.transition-interval=${trades.transition-interval}</argument>
+                                        <argument>--trades.max-quantity=${trades.max-quantity}</argument>
+                                        <argument>--prices.delay-interval=${prices.delay-interval}</argument>
+                                        <argument>--prices.max-variation=${prices.max-variation}</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
