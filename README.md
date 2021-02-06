@@ -9,10 +9,10 @@ The application will also be event-driven therefore asynchronous
 
 A trading system is a good candidate because there are events everywhere:
 
-- when a user expresses its intent trade goods on the market (buy/sell a quantity of a tradable)
-- when the intent is matched on the market by a counterpart
-- when the trade is booked (as in book-keeping)
-- when a price change impacts its portfolio valuation
+- a user expressing its intent to trade goods on the market (buy/sell a quantity of a tradable) 
+- a user intent matched on the market by a counterpart
+- a trade booked (as in book-keeping) for portfolio balance, taxes, etc
+- price changes which impact portfolio valuations
 
 One can hardly imagine the complexity of the impacts of such events in real life but we'll keep it intentionally simple
 
@@ -36,9 +36,9 @@ Before diving in the details let identify our core runtimes:
 The UI
 ---
 
-- SPA with 4 pages (subscribe, login, home, place trade)
+- SPA with 3 pages (login, portfolio dashboard, trade mask)
 - connected to a REST API
-- connected to a web socket endpoint
+- connected to a web socket endpoints
 
 The backends
 ---
@@ -48,7 +48,7 @@ The backends
 - account: consolidates all portfolios valuations by processing order events and position events
 - instrument: stores price events
 - booking: process booking (store in a book)
-- traffic-generator: randomly matches trades
+- traffic-generator: trades matching and prices volatility
 
 The platform components
 ----
