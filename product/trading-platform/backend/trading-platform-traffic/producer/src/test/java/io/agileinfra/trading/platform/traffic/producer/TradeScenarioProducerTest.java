@@ -19,11 +19,6 @@ public class TradeScenarioProducerTest {
 
 	private TradeScenarioProducer underTest;
 
-	@Before
-	public void before() {
-		underTest = new TradeScenarioProducer();
-	}
-
 	@Test
 	public void test() {
 		final TradeContext context = TradeContext.builder() //
@@ -37,7 +32,8 @@ public class TradeScenarioProducerTest {
 				.instruments(Lists.newArrayList("DE1000000", "FR2000000", "LU3000000", "GB4000000")) //
 				.accounts(Lists.newArrayList(UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString())) //
 				.build();
-		List<TradeScenario> scenarios = underTest.produce(context);
+		underTest = new TradeScenarioProducer(context);
+		List<TradeScenario> scenarios = underTest.produce();
 		log.info("Produced {} scenarios", scenarios.size());
 		// log.info("Generated SQL");
 		// final List<String> names = Lists.newArrayList("xavier", "julie", "olivier");

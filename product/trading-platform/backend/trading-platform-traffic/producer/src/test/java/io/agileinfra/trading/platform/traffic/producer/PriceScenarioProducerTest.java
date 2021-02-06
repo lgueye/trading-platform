@@ -20,11 +20,6 @@ public class PriceScenarioProducerTest {
 
 	private PriceScenarioProducer underTest;
 
-	@Before
-	public void before() {
-		underTest = new PriceScenarioProducer();
-	}
-
 	@Test
 	public void test() {
 		final PriceContext context = PriceContext
@@ -46,7 +41,8 @@ public class PriceScenarioProducerTest {
 								InstrumentDto.builder().id(UUID.randomUUID().toString()).price(250).build(),
 								InstrumentDto.builder().id(UUID.randomUUID().toString()).price(300).build())) //
 				.build();
-		List<PriceScenario> scenarios = underTest.produce(context);
+		underTest = new PriceScenarioProducer(context);
+		List<PriceScenario> scenarios = underTest.produce();
 		log.info("Produced {} scenarios", scenarios.size());
 		// log.info("Generated SQL");
 		// for (int i = 0; i < 10; i++) {

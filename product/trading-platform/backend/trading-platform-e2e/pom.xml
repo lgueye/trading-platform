@@ -1015,16 +1015,8 @@
                                         <argument>--logging.level.io.agileinfra=${logging.level}</argument>
                                         <argument>--logging.level.org.springframework=WARN</argument>
                                         <argument>--messaging.server.url=${messaging.server.url}</argument>
-                                        <!--                                        <argument>&#45;&#45;clock.server.url=${clock.server.url}</argument>-->
                                         <argument>--account.server.url=${account.server.url}</argument>
                                         <argument>--instrument.server.url=${instrument.server.url}</argument>
-                                        <argument>--start=${start}</argument>
-                                        <argument>--duration=${duration}</argument>
-                                        <argument>--trades.delay-interval=${trades.delay-interval}</argument>
-                                        <argument>--trades.transition-interval=${trades.transition-interval}</argument>
-                                        <argument>--trades.max-quantity=${trades.max-quantity}</argument>
-                                        <argument>--prices.delay-interval=${prices.delay-interval}</argument>
-                                        <argument>--prices.max-variation=${prices.max-variation}</argument>
                                     </arguments>
                                 </configuration>
                             </execution>

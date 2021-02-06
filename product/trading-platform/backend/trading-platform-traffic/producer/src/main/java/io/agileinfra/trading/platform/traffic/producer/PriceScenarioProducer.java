@@ -23,7 +23,9 @@ import java.util.stream.IntStream;
 @Slf4j
 public class PriceScenarioProducer {
 
-	public List<PriceScenario> produce(final PriceContext context) {
+	private final PriceContext context;
+
+	public List<PriceScenario> produce() {
 		final List<PriceScenario> scenarios = Lists.newArrayList();
 		final Instant start = context.getStart();
 		final Instant end = start.plus(context.getDuration());

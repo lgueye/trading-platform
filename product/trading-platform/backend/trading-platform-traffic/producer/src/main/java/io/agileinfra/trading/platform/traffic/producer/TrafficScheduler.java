@@ -7,14 +7,10 @@ import io.agileinfra.trading.platform.instrument.model.PriceEventDto;
 import io.agileinfra.trading.platform.messaging.producer.booking.BookingEventProducer;
 import io.agileinfra.trading.platform.messaging.producer.order.OrderEventProducer;
 import io.agileinfra.trading.platform.messaging.producer.price.PriceEventProducer;
-import io.agileinfra.trading.platform.traffic.model.PriceContext;
 import io.agileinfra.trading.platform.traffic.model.PriceScenario;
-import io.agileinfra.trading.platform.traffic.model.TradeContext;
 import io.agileinfra.trading.platform.traffic.model.TradeScenario;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.PostConstruct;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
@@ -24,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * Schedules prices and trades traffic for a given period of time
  */
-@RequiredArgsConstructor
 @Slf4j
 public class TrafficScheduler {
 	private final ScheduledExecutorService scheduledExecutorService;
@@ -33,12 +28,21 @@ public class TrafficScheduler {
 	private final OrderEventProducer orderEventProducer;
 	private final BookingEventProducer bookingEventProducer;
 	private final PriceEventProducer priceEventProducer;
-	private final TradeContextFactory tradeContextFactory;
-	private final PriceContextFactory priceContextFactory;
 
-	void schedule(TradeContext tradeContext, final PriceContext priceContext) {
+	public TrafficScheduler(ScheduledExecutorService scheduledExecutorService, TradeScenarioProducer tradeScenarioProducer,
+			PriceScenarioProducer priceScenarioProducer, OrderEventProducer orderEventProducer, BookingEventProducer bookingEventProducer,
+			PriceEventProducer priceEventProducer) {
+		this.scheduledExecutorService = scheduledExecutorService;
+		this.tradeScenarioProducer = tradeScenarioProducer;
+		this.priceScenarioProducer = priceScenarioProducer;
+		this.orderEventProducer = orderEventProducer;
+		this.bookingEventProducer = bookingEventProducer;
+		this.priceEventProducer = priceEventProducer;
+	}
+
+	void schedule() {
 		final Instant now = Instant.now();
-		final List<TradeScenario> tradeScenarios = tradeScenarioProducer.produce(tradeContext);
+		final List<TradeScenario> tradeScenarios = tradeScenarioProducer.produce();
 		tradeScenarios.forEach(scenario -> {
 			final InitiationEventDto initiation = scenario.getInitiation();
 			final MatchingEventDto matching = scenario.getMatching();
@@ -50,7 +54,7 @@ public class TrafficScheduler {
 			scheduledExecutorService.schedule(() -> bookingEventProducer.send(booking), Duration.between(now, booking.getTimestamp()).toMillis(),
 					TimeUnit.MILLISECONDS);
 		});
-		final List<PriceScenario> priceScenarios = priceScenarioProducer.produce(priceContext);
+		final List<PriceScenario> priceScenarios = priceScenarioProducer.produce();
 		priceScenarios.forEach(scenario -> {
 			final PriceEventDto event = scenario.getEvent();
 			scheduledExecutorService.schedule(() -> priceEventProducer.send(event), Duration.between(now, event.getTimestamp()).toMillis(),
@@ -58,10 +62,4 @@ public class TrafficScheduler {
 		});
 	}
 
-	@PostConstruct
-	public void postConstruct() {
-		final TradeContext tradeContext = tradeContextFactory.build();
-		final PriceContext priceContext = priceContextFactory.build();
-		schedule(tradeContext, priceContext);
-	}
 }
