@@ -1,0 +1,12 @@
+# NOTE: this is a file where you can't use vars
+
+terraform {
+  required_version = ">= 0.12"
+  backend "s3" {
+       region         = "eu-central-1"
+       bucket         = "agileinfra-io-staging-trading-platform-state"
+       key            = "terraform.tfstate"
+       dynamodb_table = "agileinfra-io-staging-trading-platform-state-lock"
+       encrypt        = true
+  }
+}
